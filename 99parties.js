@@ -62,15 +62,6 @@ var r = function(){
     });
   };
 
-  // var delays = [];
-  // $scope.random = function(i) {
-  //    if(!delays[i]) {
-  //     delays[i] = Math.random();
-  //   }
-  //   return delays[i];
-  // };
-
-
   $scope.firstUnusedIdea = function(){
     angular.forEach($scope.ideas, function(idea) {
       if (idea.used === false){
@@ -82,8 +73,20 @@ var r = function(){
 
   $scope.changeIdea = function(){
     console.log("changeIdea");
-    $scope.newIdea = generateNewIdea();
-  }
+    $scope.newIdea = chooseGoodOrBad();
+  };
+
+  var chooseGoodOrBad = function(){
+    //flip coin
+    var coin = r();
+    console.log("coin"+coin);
+    if (coin>0.5) {
+      return generateNewIdea();
+    }
+    else {
+      return "bad";
+    }
+  };
 
   var generateNewIdea = function(){
     console.log(r()); 
@@ -99,6 +102,7 @@ var r = function(){
       $scope.resetAll();
     }  
     else {
+      console.log("Left: "+currIdeasLeft.length);
       var randomIndex = Math.floor(r()*currIdeasLeft.length);
       console.log(randomIndex);
       var item = currIdeasLeft[randomIndex];
@@ -108,6 +112,6 @@ var r = function(){
     return msg;
   };
 
-  $scope.newIdea = generateNewIdea();
+  $scope.newIdea = chooseGoodOrBad();
   
 }
